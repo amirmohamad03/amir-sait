@@ -1,12 +1,235 @@
+
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>امیر محمد</title>
-    <meta name="author" content="امیر">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMIR.DEV</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: #080b16;
+            color: white;
+        }
+
+        header {
+            padding: 25px 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ffffff12;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            color: #00e5ff;
+        }
+
+        nav a {
+            color: #ccc;
+            text-decoration: none;
+            margin-right: 25px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #00e5ff;
+        }
+
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .hero h1 {
+            font-size: clamp(35px, 6vw, 70px);
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #00e5ff;
+        }
+
+        .hero p {
+            color: #aaa;
+            font-size: 18px;
+            line-height: 2;
+        }
+
+        .buttons {
+            margin-top: 35px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 13px 28px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .primary {
+            background: #00e5ff;
+            color: #080b16;
+        }
+
+        .secondary {
+            border: 1px solid #00e5ff;
+            color: #00e5ff;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+        }
+
+        section {
+            padding: 80px 10%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 45px;
+        }
+
+        .section-title span {
+            color: #00e5ff;
+        }
+
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .skill {
+            background: #11182b;
+            border: 1px solid #ffffff10;
+            padding: 30px;
+            text-align: center;
+            border-radius: 18px;
+            transition: 0.3s;
+        }
+
+        .skill:hover {
+            transform: translateY(-8px);
+            border-color: #00e5ff;
+        }
+
+        .skill h3 {
+            color: #00e5ff;
+            margin-bottom: 12px;
+        }
+
+        .skill p {
+            color: #999;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+            border-top: 1px solid #ffffff10;
+        }
+
+        footer span {
+            color: #00e5ff;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin: 0 8px;
+            }
+        }
+    </style>
 </head>
-<body dir="rtl">
-    <h1>سلام! به سایت من خوش آمدید</h1>
-    <p>من امیر هستم و این اولین سایت من است.</p>
+
+<body>
+
+<header>
+    <div class="logo">AMIR.DEV</div>
+
+    <nav>
+        <a href="#home">خانه</a>
+        <a href="#skills">بخش‌ها</a>
+    </nav>
+</header>
+
+<div class="hero" id="home">
+    <h1>Welcome to <span>AMIR.DEV</span></h1>
+
+    <p>
+        دنیای برنامه‌نویسی، شبکه و تکنولوژی
+        <br>
+        Explore the world of technology
+    </p>
+
+    <div class="buttons">
+        <a href="#skills" class="btn primary">شروع کنید</a>
+
+        <a href="https://github.com/amirmohamad03"
+           target="_blank"
+           class="btn secondary">
+           GitHub
+        </a>
+    </div>
+</div>
+
+<section id="skills">
+    <h2 class="section-title">Explore <span>Technology</span></h2>
+
+    <div class="skills">
+
+        <div class="skill">
+            <h3>💻 Web Design</h3>
+            <p>HTML & CSS</p>
+        </div>
+
+        <div class="skill">
+            <h3>🌐 Networking</h3>
+            <p>Network & VLAN</p>
+        </div>
+
+        <div class="skill">
+            <h3>⚡ Programming</h3>
+            <p>Code & Development</p>
+        </div>
+
+        <div class="skill">
+            <h3>🚀 Technology</h3>
+            <p>Future & Innovation</p>
+        </div>
+
+    </div>
+</section>
+
+<footer>
+    Designed by <span>AMIR.DEV</span>
+    <br><br>
+    © 2026 All Rights Reserved
+</footer>
+
 </body>
 </html>
