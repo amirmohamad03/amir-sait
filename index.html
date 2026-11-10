@@ -15,10 +15,36 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Vazirmatn', sans-serif;
-            background: #080b16;
+            background: #050611;
             color: white;
+            overflow-x: hidden;
+        }
+
+        /* پس زمینه متحرک */
+        #particles {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: #050611;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 20% 30%, #5317ff30, transparent 35%),
+                radial-gradient(circle at 80% 70%, #00e5ff20, transparent 35%);
         }
 
         header {
@@ -26,13 +52,19 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #ffffff12;
+            border-bottom: 1px solid #ffffff15;
+            backdrop-filter: blur(15px);
+            background: #080b1690;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
         .logo {
             font-size: 25px;
             font-weight: 800;
             color: #00e5ff;
+            text-shadow: 0 0 20px #00e5ff70;
         }
 
         nav a {
@@ -44,6 +76,7 @@
 
         nav a:hover {
             color: #00e5ff;
+            text-shadow: 0 0 15px #00e5ff;
         }
 
         .hero {
@@ -59,22 +92,27 @@
         .hero h1 {
             font-size: clamp(35px, 6vw, 70px);
             margin-bottom: 20px;
+            animation: appear 1.2s ease;
         }
 
         .hero h1 span {
             color: #00e5ff;
+            text-shadow: 0 0 30px #00e5ff70;
         }
 
         .hero p {
             color: #aaa;
             font-size: 18px;
             line-height: 2;
+            animation: appear 1.8s ease;
         }
 
         .buttons {
             margin-top: 35px;
             display: flex;
             gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .btn {
@@ -88,15 +126,18 @@
         .primary {
             background: #00e5ff;
             color: #080b16;
+            box-shadow: 0 0 20px #00e5ff40;
         }
 
         .secondary {
             border: 1px solid #00e5ff;
             color: #00e5ff;
+            background: #00e5ff08;
         }
 
         .btn:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 0 30px #00e5ff70;
         }
 
         section {
@@ -111,6 +152,7 @@
 
         .section-title span {
             color: #00e5ff;
+            text-shadow: 0 0 20px #00e5ff50;
         }
 
         .skills {
@@ -120,17 +162,20 @@
         }
 
         .skill {
-            background: #11182b;
-            border: 1px solid #ffffff10;
+            background: #11182b90;
+            backdrop-filter: blur(12px);
+            border: 1px solid #ffffff15;
             padding: 30px;
             text-align: center;
             border-radius: 18px;
-            transition: 0.3s;
+            transition: 0.4s;
         }
 
         .skill:hover {
-            transform: translateY(-8px);
+            transform: translateY(-10px);
             border-color: #00e5ff;
+            box-shadow: 0 0 30px #00e5ff20;
+            background: #101b30;
         }
 
         .skill h3 {
@@ -146,11 +191,24 @@
             text-align: center;
             padding: 30px;
             color: #777;
-            border-top: 1px solid #ffffff10;
+            border-top: 1px solid #ffffff15;
+            background: #080b1680;
         }
 
         footer span {
             color: #00e5ff;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @media (max-width: 600px) {
@@ -162,11 +220,17 @@
             nav a {
                 margin: 0 8px;
             }
+
+            .hero h1 {
+                font-size: 35px;
+            }
         }
     </style>
 </head>
 
 <body>
+
+<canvas id="particles"></canvas>
 
 <header>
     <div class="logo">AMIR.DEV</div>
@@ -191,6 +255,7 @@
 
         <a href="https://github.com/amirmohamad03"
            target="_blank"
+           rel="noopener noreferrer"
            class="btn secondary">
            GitHub
         </a>
@@ -230,6 +295,104 @@
     <br><br>
     © 2026 All Rights Reserved
 </footer>
+
+<script>
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+
+    let particles = [];
+    let width, height;
+
+    function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+
+        createParticles();
+    }
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.size = Math.random() * 2 + 0.5;
+            this.speedX = (Math.random() - 0.5) * 0.5;
+            this.speedY = (Math.random() - 0.5) * 0.5;
+            this.color = Math.random() > 0.5 ? "#00e5ff" : "#8b5cf6";
+        }
+
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+
+            if (this.x < 0 || this.x > width) {
+                this.speedX *= -1;
+            }
+
+            if (this.y < 0 || this.y > height) {
+                this.speedY *= -1;
+            }
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = this.color;
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = this.color;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+        }
+    }
+
+    function createParticles() {
+        particles = [];
+
+        let count = Math.min(
+            100,
+            Math.floor((width * height) / 10000)
+        );
+
+        for (let i = 0; i < count; i++) {
+            particles.push(new Particle());
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw();
+
+            for (let j = i + 1; j < particles.length; j++) {
+                let dx = particles[i].x - particles[j].x;
+                let dy = particles[i].y - particles[j].y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 110) {
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+
+                    ctx.strokeStyle =
+                        "rgba(0, 229, 255," +
+                        (1 - distance / 110) * 0.2 +
+                        ")";
+
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+                }
+            }
+        }
+
+        requestAnimationFrame(animate);
+    }
+
+    window.addEventListener("resize", resize);
+
+    resize();
+    animate();
+</script>
 
 </body>
 </html>
